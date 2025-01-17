@@ -1,0 +1,53 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+bower_components/
+
+# Build outputs
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE/Editor settings
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Package lock files
+package-lock.json
+yarn.lock
+
+# Static files
+public/static/
+public/uploads/
+
+# Cache files
+.cache/
+.next/
+out/
+
+# SASS/CSS
+*.sass-cache
+*.scss-cache
