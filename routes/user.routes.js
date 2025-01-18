@@ -1,46 +1,34 @@
 const express = require('express');
 const router = express.Router();
-
-const userModels = require('../models/user.models');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+const isLoggedIn = require('../middlewares/isLoggedln.middlewares');
+
+const {
+  register,
+  login,
+  logout,
+  profile,
+} = require('../controllers/auth.controllers');
+
+// Registration Route
 router.get('/', (req, res) => {
   res.render('index');
 });
 
-router.post('/registrar', (req, res) => {
-  try {
-    const { fullname, email, password } = req.body;
-    if (!fullname || !email || !password) {
-      res.send('Required All Fields');
-    }
+router.post('/register', register);
 
-    const salt = bcrypt.genSaltSync(10);
-    const hashPassword = bcrypt.hashSync(password, salt);
-
-    const user = new userModels({
-      fullname,
-      email,
-      password: hashPassword,
-    });
-
-    const token = jwt.sign(
-      { email: user.email, id: user._id },
-      process.env.JWT_SECRET,
-    );
-    res.cookie('token', token);
-    res.send(user);
-  } catch (error) {
-    console.log('Registrar Error' + error);
-  }
-});
-
+// Login Route
 router.get('/login', (req, res) => {
   res.render('login');
 });
 
-router.post('/login', (req, res) => {});
+router.post('/login', login);
+
+// Logout Route
+router.get('/logout', logout);
+
+// Profile Route (Protected)
+router.get('/profile', isLoggedIn, profile);
 
 module.exports = router;
